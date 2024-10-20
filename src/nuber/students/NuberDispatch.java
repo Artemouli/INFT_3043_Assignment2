@@ -1,9 +1,11 @@
 package nuber.students;
 
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Future;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The core Dispatch class that instantiates and manages everything for Nuber
@@ -25,7 +27,9 @@ public class NuberDispatch {
 	
 	// a queue of idle drivers
 	// drivers are added to this queue in the addDriver() method
-	private Queue<Driver> idleDrivers = new LinkedList<>();
+	// ConcurrentLinkedQueue is non-blocking, if the poll() is empty it will return null
+	// TODO: Change implemenation depending on how the simulation runs
+	private ConcurrentLinkedQueue<Driver> idleDrivers = new ConcurrentLinkedQueue<>();
 	
 	/**
 	 * Creates a new dispatch objects and instantiates the required regions and any other objects required.
@@ -50,7 +54,7 @@ public class NuberDispatch {
 	 */
 	public boolean addDriver(Driver newDriver)
 	{
-		
+		return idleDrivers.offer(newDriver);
 	}
 	
 	/**
@@ -62,6 +66,7 @@ public class NuberDispatch {
 	 */
 	public Driver getDriver()
 	{
+		return idleDrivers.poll();
 	}
 
 	/**
@@ -91,7 +96,9 @@ public class NuberDispatch {
 	 * @param region The region to book them into
 	 * @return returns a Future<BookingResult> object
 	 */
-	public Future<BookingResult> bookPassenger(Passenger passenger, String region) {
+	public Future<BookingResult> bookPassenger(Passenger passenger, String region) 
+	{
+		
 	}
 
 	/**

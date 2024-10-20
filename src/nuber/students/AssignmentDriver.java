@@ -44,11 +44,10 @@ public class AssignmentDriver {
 		//Booking b2 = new Booking(dispatch, testPassenger);
 		
 		//test creating a new region
-		//NuberRegion region = new NuberRegion(dispatch, "Test Region", 10);
+		NuberRegion region = new NuberRegion(dispatch, "Test Region", 10);
 
 		//test adding a driver to dispatch
 		dispatch.addDriver(testDriver);
-		
 		//test booking a single passenger
 		dispatch.bookPassenger(testPassenger, "Test Region");
 
