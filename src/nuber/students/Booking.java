@@ -1,5 +1,8 @@
 package nuber.students;
 
+import java.time.Duration;
+import java.time.Instant;
+
 /**
  * 
  * Booking represents the overall "job" for a passenger getting to their destination.
@@ -20,6 +23,17 @@ package nuber.students;
  */
 public class Booking {
 
+	
+	private NuberDispatch dispatch;
+	private Passenger passenger;
+	
+	// keeps track of the num of bookings, used to set the jobID for each booking
+	private static int bookingCount = 0;
+	
+	// each Booking instances unique jobID
+	private int jobID = ++bookingCount;
+	
+	
 		
 	/**
 	 * Creates a new booking for a given Nuber dispatch and passenger, noting that no
@@ -31,7 +45,8 @@ public class Booking {
 	 */
 	public Booking(NuberDispatch dispatch, Passenger passenger)
 	{
-		
+		this.dispatch = dispatch;
+		this.passenger = passenger;		
 	}
 	
 	/**
@@ -51,7 +66,36 @@ public class Booking {
 	 * @return A BookingResult containing the final information about the booking 
 	 */
 	public BookingResult call() {
-
+		
+		try {
+			// the start timer
+			Instant start = Instant.now();
+			// 1.
+			// 2. 
+			Driver currentDriver = this.dispatch.getDriver();
+			
+			// 3.
+			currentDriver.pickUpPassenger(this.passenger);
+			
+			// 4.
+			currentDriver.driveToDestination();
+			
+			// 5.
+			// the finish time
+			Instant end = Instant.now();
+			// the trip duration
+			long tripDuration = Duration.between(start, end).toMillis();
+			
+			// 6. 
+			this.dispatch.addDriver(currentDriver);
+			
+			// 7. 
+			BookingResult bookingResult = new BookingResult(this.jobID, this.passenger, currentDriver, tripDuration);
+			 
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/***

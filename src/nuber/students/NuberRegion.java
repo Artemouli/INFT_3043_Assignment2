@@ -20,7 +20,7 @@ public class NuberRegion {
 
 	private NuberDispatch dispatch;
 	private String regionName;
-	private int maxBookings;
+	private int maxSimultaneousJobs;
 	
 	/**
 	 * Creates a new Nuber region
@@ -33,7 +33,7 @@ public class NuberRegion {
 	{
 		this.dispatch = dispatch;
 		this.regionName = regionName;
-		this.maxBookings = maxSimultaneousJobs;
+		this.maxSimultaneousJobs = maxSimultaneousJobs;
 	}
 	
 	/**

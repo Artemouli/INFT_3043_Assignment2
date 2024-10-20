@@ -29,7 +29,8 @@ public class NuberDispatch {
 	// drivers are added to this queue in the addDriver() method
 	// ConcurrentLinkedQueue is non-blocking, if the poll() is empty it will return null
 	// TODO: Change implemenation depending on how the simulation runs
-	private ConcurrentLinkedQueue<Driver> idleDrivers = new ConcurrentLinkedQueue<>();
+	// (in Booking.java) 2.	If no driver is currently available, the booking must wait until one is available. 
+	private BlockingQueue<Driver> idleDrivers = new LinkedBlockingQueue<>();
 	
 	/**
 	 * Creates a new dispatch objects and instantiates the required regions and any other objects required.
@@ -63,10 +64,12 @@ public class NuberDispatch {
 	 * Must be able to have drivers added from multiple threads.
 	 * 
 	 * @return A driver that has been removed from the queue
+	 * @throws InterruptedException 
 	 */
-	public Driver getDriver()
+	public Driver getDriver() throws InterruptedException
 	{
-		return idleDrivers.poll();
+		// will wait until a driver is available 
+		return idleDrivers.take();
 	}
 
 	/**
