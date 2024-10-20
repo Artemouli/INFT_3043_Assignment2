@@ -27,6 +27,9 @@ public class Booking {
 	private NuberDispatch dispatch;
 	private Passenger passenger;
 	
+	// the driver of the booking
+	Driver currentDriver;
+	
 	// keeps track of the num of bookings, used to set the jobID for each booking
 	private static int bookingCount = 0;
 	
@@ -72,13 +75,13 @@ public class Booking {
 			Instant start = Instant.now();
 			// 1.
 			// 2. 
-			Driver currentDriver = this.dispatch.getDriver();
+			this.currentDriver = this.dispatch.getDriver();
 			
 			// 3.
-			currentDriver.pickUpPassenger(this.passenger);
+			this.currentDriver.pickUpPassenger(this.passenger);
 			
 			// 4.
-			currentDriver.driveToDestination();
+			this.currentDriver.driveToDestination();
 			
 			// 5.
 			// the finish time
@@ -87,10 +90,10 @@ public class Booking {
 			long tripDuration = Duration.between(start, end).toMillis();
 			
 			// 6. 
-			this.dispatch.addDriver(currentDriver);
+			this.dispatch.addDriver(this.currentDriver);
 			
 			// 7. 
-			BookingResult bookingResult = new BookingResult(this.jobID, this.passenger, currentDriver, tripDuration);
+			BookingResult bookingResult = new BookingResult(this.jobID, this.passenger, this.currentDriver, tripDuration);
 			 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -111,6 +114,8 @@ public class Booking {
 	@Override
 	public String toString()
 	{
+		String returnString = this.jobID + "," + this.currentDriver + "," + this.passenger;
+		return returnString;
 	}
 
 }
