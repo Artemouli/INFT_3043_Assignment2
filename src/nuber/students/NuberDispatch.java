@@ -1,6 +1,8 @@
 package nuber.students;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.concurrent.Future;
 
 /**
@@ -18,6 +20,13 @@ public class NuberDispatch {
 	
 	private boolean logEvents = false;
 	
+	// regionInfo map 
+	private HashMap<String, Integer> regionInfo = new HashMap<>();
+	
+	// a queue of idle drivers
+	// drivers are added to this queue in the addDriver() method
+	private Queue<Driver> idleDrivers = new LinkedList<>();
+	
 	/**
 	 * Creates a new dispatch objects and instantiates the required regions and any other objects required.
 	 * It should be able to handle a variable number of regions based on the HashMap provided.
@@ -27,6 +36,8 @@ public class NuberDispatch {
 	 */
 	public NuberDispatch(HashMap<String, Integer> regionInfo, boolean logEvents)
 	{
+		this.logEvents = logEvents;
+		this.regionInfo.putAll(regionInfo);
 	}
 	
 	/**
@@ -39,6 +50,7 @@ public class NuberDispatch {
 	 */
 	public boolean addDriver(Driver newDriver)
 	{
+		
 	}
 	
 	/**

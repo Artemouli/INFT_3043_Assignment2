@@ -29,7 +29,6 @@ public class NuberRegion {
 	public NuberRegion(NuberDispatch dispatch, String regionName, int maxSimultaneousJobs)
 	{
 		
-
 	}
 	
 	/**
